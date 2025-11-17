@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace FP.Input
 {
-    [CreateAssetMenu(fileName = "InputInitializer", menuName = "Shippin/Inputs/InputInitializer", order = 0)]
+    [CreateAssetMenu(fileName = "InputInitializer", menuName = "Inputs/InputInitializer", order = 0)]
     public class InputInitializer : ScriptableObject
     {
         public List<DictionaryInputBool> InputInitialize = new();
