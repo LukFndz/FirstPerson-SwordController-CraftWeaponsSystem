@@ -3,6 +3,7 @@ using FP.Player.Combat.Attack;
 using FP.Player.Combat.Weapon;
 using FP.Player.Combat.Hit;
 using FP.Input;
+using FP.UI;
 
 namespace FP.Player.Combat
 {
