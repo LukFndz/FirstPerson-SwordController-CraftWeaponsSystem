@@ -1,18 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using FP.Player.Combat.Attack;
 
-public class IHitReceiver : MonoBehaviour
+namespace FP.Player.Combat.Hit
 {
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// Interface for any object that can receive melee attack hits.
+    /// </summary>
+    public interface IHitReceiver
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        void ReceiveHit(AttackData attackData);
     }
 }

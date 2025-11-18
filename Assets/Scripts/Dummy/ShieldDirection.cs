@@ -1,18 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class ShieldDirection : MonoBehaviour
+namespace FP.Dummy
 {
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// Represents which side of the dummy is protected by a shield.
+    /// </summary>
+    public enum ShieldDirection
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        None,
+        Up,
+        Down,
+        Left,
+        Right
     }
 }

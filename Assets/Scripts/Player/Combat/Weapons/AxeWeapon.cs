@@ -1,18 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using FP.Player.Combat.Attack;
+using FP.Player.Combat.Weapon;
+using FP.Player.Combat.Hit;
 
-public class AxeWeapon : MonoBehaviour
+namespace FP.Player.Combat.Weapons
 {
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// Concrete axe weapon implementation.
+    /// Deals slower but stronger directional melee attacks.
+    /// </summary>
+    [CreateAssetMenu(menuName = "Weapons/Axe")]
+    public sealed class AxeWeapon : WeaponBase
     {
-        
-    }
+        public override void PerformAttack(AttackDirection direction, HitDetector hitDetector)
+        {
+            if (direction == AttackDirection.None)
+                return;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            AttackData attackData = new AttackData(
+                direction,
+                Damage
+            );
+
+            ExecuteAttack(attackData);
+        }
+
+        private void ExecuteAttack(AttackData attackData)
+        {
+            if (HitDetector == null)
+                return;
+
+            HitDetector.PerformHit(attackData);
+        }
     }
 }

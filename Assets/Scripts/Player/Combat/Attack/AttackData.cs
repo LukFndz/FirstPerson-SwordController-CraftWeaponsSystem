@@ -1,18 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class AttackData : MonoBehaviour
+namespace FP.Player.Combat.Attack
 {
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// Represents a single attack instance containing all necessary data
+    /// such as damage, direction, animation clip and attack range.
+    /// </summary>
+    public sealed class AttackData
     {
-        
-    }
+        public AttackDirection Direction { get; }
+        public float Damage { get; }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public AttackData(
+            AttackDirection direction,
+            float damage)
+        {
+            Direction = direction;
+            Damage = damage;
+        }
     }
 }
