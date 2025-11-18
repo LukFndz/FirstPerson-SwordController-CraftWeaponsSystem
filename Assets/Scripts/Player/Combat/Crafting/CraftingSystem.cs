@@ -8,7 +8,9 @@ namespace FP.Player.Crafting
     public sealed class CraftingSystem : MonoBehaviour
     {
         [SerializeField] private PlayerResourceCounter _resourceCounter;
-        [SerializeField] private WeaponController _weaponController;
+        private WeaponController _weaponController;
+
+        public WeaponController WeaponController { set => _weaponController = value; }
 
         public void Craft(WeaponRecipe recipe)
         {

@@ -14,6 +14,8 @@ namespace FP.Player.Core
         [SerializeField] private HeadbobController _headbob;
         [SerializeField] private WeaponController _weaponController;
 
+        public WeaponController WeaponController { get => _weaponController; }
+
         private void Update()
         {
             _movement.Tick();

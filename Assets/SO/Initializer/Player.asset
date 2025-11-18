@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b237916fa43f97941895af28e7c89229, type: 3}
-  m_Name: PlayerInitializer
+  m_Name: Player
   m_EditorClassIdentifier: 
   InputInitialize:
   - ActionName: Move
@@ -22,4 +22,6 @@ MonoBehaviour:
   - ActionName: Jump
     Value: 1
   - ActionName: Sprint
+    Value: 1
+  - ActionName: OpenUI
     Value: 1

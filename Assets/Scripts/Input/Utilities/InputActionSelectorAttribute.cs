@@ -7,7 +7,7 @@ namespace FP.Input.Utilities
 {
     public class InputActionSelectorAttribute : PropertyAttribute
     {
-        private const string ASSET_PATH = "Assets/Misc/InputAction.inputactions";
+        private const string ASSET_PATH = "Assets/InputSystem/InputAction.inputactions";
         public InputActionAsset InputAsset
         {
             get
