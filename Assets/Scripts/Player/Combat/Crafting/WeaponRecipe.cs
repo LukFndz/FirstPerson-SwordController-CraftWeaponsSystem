@@ -1,18 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using FP.Player.Combat.Weapon;
 
-public class WeaponRecipe : MonoBehaviour
+namespace FP.Player.Crafting
 {
-    // Start is called before the first frame update
-    void Start()
+    [CreateAssetMenu(menuName = "Crafting/Weapon Recipe")]
+    public sealed class WeaponRecipe : ScriptableObject
     {
-        
-    }
+        [SerializeField] private WeaponBase _weaponData;
+        [SerializeField] private GameObject _weaponPrefab;
+        [SerializeField] private int _woodCost;
+        [SerializeField] private int _ironCost;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public WeaponBase WeaponData => _weaponData;
+        public GameObject WeaponPrefab => _weaponPrefab;
+        public int WoodCost => _woodCost;
+        public int IronCost => _ironCost;
     }
 }

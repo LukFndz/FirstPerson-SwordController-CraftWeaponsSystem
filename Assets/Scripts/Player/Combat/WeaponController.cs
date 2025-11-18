@@ -4,6 +4,7 @@ using FP.Player.Combat.Weapon;
 using FP.Player.Combat.Hit;
 using FP.Input;
 using FP.UI;
+using UnityEngine.WSA;
 
 namespace FP.Player.Combat
 {
@@ -12,9 +13,15 @@ namespace FP.Player.Combat
     /// </summary>
     public sealed class WeaponController : MonoBehaviour
     {
-        [SerializeField] private WeaponBase _currentWeapon;
-        [SerializeField] private HitDetector _hitDetector;
+        [SerializeField] private GameObject _startingWeaponPrefab;
+        [SerializeField] private WeaponBase _startingWeaponData;
         [SerializeField] private Animator _animator;
+        [SerializeField] private PlayerWeaponHolder _holder;
+
+
+        private WeaponBase _currentWeapon;
+        private HitDetector _hitDetector;
+        private GameObject _currentWeaponObject;
 
         private DirectionalAttackResolver _directionResolver;
         private bool _isAttacking;
@@ -27,8 +34,11 @@ namespace FP.Player.Combat
         private void Awake()
         {
             _directionResolver = new DirectionalAttackResolver();
-            if (_currentWeapon == null) return;
-            _currentWeapon.Initialize(this, _hitDetector);
+
+            if (_startingWeaponPrefab != null && _startingWeaponData != null)
+            {
+                EquipWeapon(_startingWeaponPrefab, _startingWeaponData);
+            }
         }
 
         public void Tick()
@@ -123,9 +133,15 @@ namespace FP.Player.Combat
             _currentWeapon.StopHit();
         }
 
-        public void EquipWeapon(WeaponBase weapon)
+        public void EquipWeapon(GameObject prefab, WeaponBase data)
         {
-            _currentWeapon = weapon;
+            if (_currentWeaponObject != null)
+                Destroy(_currentWeaponObject);
+
+            _currentWeaponObject = Instantiate(prefab, _holder.Holder);
+            _hitDetector = _currentWeaponObject.GetComponentInChildren<HitDetector>();
+
+            _currentWeapon = Instantiate(data);
             _currentWeapon.Initialize(this, _hitDetector);
         }
 
