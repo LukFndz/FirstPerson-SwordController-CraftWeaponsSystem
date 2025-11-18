@@ -4,8 +4,7 @@ using FP.Player.Combat.Attack;
 namespace FP.Player.Combat.Hit
 {
     /// <summary>
-    /// Detects hits for melee weapons using a box-shaped overlap volume.
-    /// Applies damage to any object implementing IHitReceiver.
+    /// Detects hits within a defined area and notifies hit receivers.
     /// </summary>
     public sealed class HitDetector : MonoBehaviour
     {
@@ -14,11 +13,27 @@ namespace FP.Player.Combat.Hit
         [SerializeField] private Vector3 _size;
 
         private readonly Collider[] _results = new Collider[8];
+        private bool _isActive;
+        private AttackData _data;
 
-        /// <summary>
-        /// Performs a hit detection and applies damage to valid receivers.
-        /// </summary>
-        public void PerformHit(AttackData attackData)
+        public void StartHit(AttackData data)
+        {
+            _isActive = true;
+            _data = data;
+        }
+
+        public void StopHit()
+        {
+            _isActive = false;
+        }
+
+        private void Update()
+        {
+            if (_isActive)
+                PerformHitInternal();
+        }
+
+        private void PerformHitInternal()
         {
             if (_origin == null)
                 return;
@@ -33,11 +48,8 @@ namespace FP.Player.Combat.Hit
 
             for (int i = 0; i < count; i++)
             {
-                Collider col = _results[i];
-                if (!col.TryGetComponent<IHitReceiver>(out var receiver))
-                    continue;
-
-                receiver.ReceiveHit(attackData);
+                if (_results[i].TryGetComponent<IHitReceiver>(out var receiver))
+                    receiver.ReceiveHit(_data);
             }
         }
 
@@ -46,9 +58,9 @@ namespace FP.Player.Combat.Hit
             if (_origin == null)
                 return;
 
-            var oldMatrix = Gizmos.matrix;
-
             Gizmos.color = Color.red;
+            Matrix4x4 old = Gizmos.matrix;
+
             Gizmos.matrix = Matrix4x4.TRS(
                 _origin.position,
                 _origin.rotation,
@@ -56,8 +68,7 @@ namespace FP.Player.Combat.Hit
             );
 
             Gizmos.DrawWireCube(Vector3.zero, Vector3.one);
-
-            Gizmos.matrix = oldMatrix;
+            Gizmos.matrix = old;
         }
     }
 }

@@ -4,7 +4,7 @@ namespace FP.Player.Combat.Attack
 {
     /// <summary>
     /// Resolves the player's attack direction based on recent mouse input.
-    /// Provides simple directional detection: Up, Down, Left, Right.
+    /// Provides simple directional detection: Up, Left, Right.
     /// </summary>
     public class DirectionalAttackResolver
     {

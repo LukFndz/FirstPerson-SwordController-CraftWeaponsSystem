@@ -14,6 +14,8 @@ namespace FP.Player.Combat.Weapons
     {
         public override void PerformAttack(AttackDirection direction, HitDetector hitDetector)
         {
+            base.PerformAttack(direction, hitDetector);
+
             if (direction == AttackDirection.None)
                 return;
 
@@ -30,7 +32,7 @@ namespace FP.Player.Combat.Weapons
             if (HitDetector == null)
                 return;
 
-            HitDetector.PerformHit(attackData);
+            HitDetector.StartHit(attackData);
         }
     }
 }

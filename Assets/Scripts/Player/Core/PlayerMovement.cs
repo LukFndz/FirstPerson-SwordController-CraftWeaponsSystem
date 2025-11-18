@@ -29,9 +29,6 @@ namespace FP.Player.Core
             _controller = GetComponent<CharacterController>();
         }
 
-        /// <summary>
-        /// Main movement loop called from PlayerController.
-        /// </summary>
         public void Tick()
         {
             HandleMovement();
@@ -42,7 +39,6 @@ namespace FP.Player.Core
         {
             var input = InputManager.Instance.GetVector2Value("Move");
 
-            // Immediate raw magnitude from input (no smoothing).
             InputMagnitude = Mathf.Clamp01(new Vector2(input.x, input.y).magnitude);
 
             var direction = new Vector3(input.x, 0f, input.y);
@@ -52,7 +48,6 @@ namespace FP.Player.Core
                 ? _sprintSpeed
                 : _walkSpeed;
 
-            // Smooth current speed for physics/movement, but do not use it for headbob.
             _currentSpeed = Mathf.Lerp(_currentSpeed, targetSpeed * direction.magnitude, _acceleration * Time.deltaTime);
 
             var move = direction.normalized * _currentSpeed;

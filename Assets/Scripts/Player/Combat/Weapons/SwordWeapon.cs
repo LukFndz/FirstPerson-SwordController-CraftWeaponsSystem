@@ -1,26 +1,25 @@
-using UnityEngine;
 using FP.Player.Combat.Attack;
-using FP.Player.Combat.Weapon;
 using FP.Player.Combat.Hit;
+using FP.Player.Combat.Weapon;
+using UnityEngine;
 
 namespace FP.Player.Combat.Weapons
 {
-    /// <summary>
-    /// Concrete sword weapon implementation.
-    /// Generates attack data based on the direction and
-    /// performs a melee hit scan using the HitDetector.
-    /// </summary>
     [CreateAssetMenu(menuName = "Weapons/Sword")]
     public sealed class SwordWeapon : WeaponBase
     {
         public override void PerformAttack(AttackDirection direction, HitDetector hitDetector)
         {
+            base.PerformAttack(direction, hitDetector);
+
             if (direction == AttackDirection.None)
                 return;
 
             AttackData attackData = new AttackData(
                 direction,
-                Damage
+                Damage,
+                false,
+                Owner
             );
 
             ExecuteAttack(attackData);
@@ -31,7 +30,7 @@ namespace FP.Player.Combat.Weapons
             if (HitDetector == null)
                 return;
 
-            HitDetector.PerformHit(attackData);
+            HitDetector.StartHit(attackData);
         }
     }
 }

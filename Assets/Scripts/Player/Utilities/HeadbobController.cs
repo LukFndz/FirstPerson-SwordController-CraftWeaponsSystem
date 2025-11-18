@@ -11,8 +11,8 @@ namespace FP.Player.Utilities
         [SerializeField] private Camera _camera;
         [SerializeField] private float _bobAmount = 0.05f;
         [SerializeField] private float _bobFrequency = 12f;
-        [SerializeField] private float _returnSmoothTime = 0.08f; // short fade out
-        [SerializeField] private float _moveSmoothTime = 0.04f;   // responsive following while moving
+        [SerializeField] private float _returnSmoothTime = 0.08f;
+        [SerializeField] private float _moveSmoothTime = 0.04f;
 
         private Vector3 _initialPos;
         private Vector3 _currentOffset;
@@ -24,20 +24,15 @@ namespace FP.Player.Utilities
             _initialPos = _camera.transform.localPosition;
         }
 
-        /// <summary>
-        /// Tick should be called from LateUpdate to ensure camera updates after movement.
-        /// inputMagnitude is the immediate (unsmoothed) input magnitude from PlayerMovement (0..1).
-        /// </summary>
         public void Tick(float inputMagnitude)
         {
-            bool isIntentMoving = inputMagnitude > 0.01f; // very small threshold so release is instant
+            bool isIntentMoving = inputMagnitude > 0.01f;
 
             if (isIntentMoving)
             {
-                // Only advance timer while player is actually giving movement input.
                 _timer += Time.deltaTime * _bobFrequency * Mathf.Lerp(0.6f, 1.2f, inputMagnitude);
 
-                float bob = Mathf.Sin(_timer) * _bobAmount * inputMagnitude; // scale bob by input magnitude
+                float bob = Mathf.Sin(_timer) * _bobAmount * inputMagnitude;
                 Vector3 target = new Vector3(0f, bob, 0f);
 
                 _currentOffset = Vector3.SmoothDamp(
@@ -49,8 +44,6 @@ namespace FP.Player.Utilities
             }
             else
             {
-                // Freeze timer to avoid phase jumps when resuming.
-                // Smoothly return to zero offset quickly (short smooth time).
                 _currentOffset = Vector3.SmoothDamp(
                     _currentOffset,
                     Vector3.zero,

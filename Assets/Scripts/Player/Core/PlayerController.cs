@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace FP.Player.Core
 {
+    /// <summary>
+    /// Central controller that coordinates player movement, camera, headbob, and weapon systems.
+    /// </summary>
     public class PlayerController : MonoBehaviour
     {
         [SerializeField] private PlayerMovement _movement;
